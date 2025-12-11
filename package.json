@@ -18,7 +18,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jacobbuck/react-use-match-media.git"
+    "url": "git+https://github.com/aliebuck/react-use-match-media.git"
   },
   "keywords": [
     "hook",
@@ -28,12 +28,12 @@
     "react",
     "window"
   ],
-  "author": "Jacob Buck <buck.jacob@gmail.com>",
+  "author": "Alie Buck <830470+aliebuck@users.noreply.github.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jacobbuck/react-use-match-media/issues"
+    "url": "https://github.com/aliebuck/react-use-match-media/issues"
   },
-  "homepage": "https://github.com/jacobbuck/react-use-match-media#readme",
+  "homepage": "https://github.com/aliebuck/react-use-match-media#readme",
   "dependencies": {
     "tiny-invariant": "^1.2.0"
   },
