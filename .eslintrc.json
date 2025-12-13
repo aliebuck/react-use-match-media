@@ -16,9 +16,6 @@
     "sourceType": "module"
   },
   "plugins": ["prettier", "react-hooks", "@vitest"],
-  "rules": {
-    "prettier/prettier": ["error", { "singleQuote": true }]
-  },
   "settings": {
     "react": {
       "version": "detect"

@@ -1,80 +1,80 @@
 // @vitest-environment jsdom
-import { act, renderHook } from '@testing-library/react';
-import matchMediaMock from 'match-media-mock';
-import { afterEach, beforeEach, describe, expect, test } from 'vitest';
-import useMatchMedia from '..';
+import { act, renderHook } from "@testing-library/react";
+import matchMediaMock from "match-media-mock";
+import { afterEach, beforeEach, describe, expect, test } from "vitest";
+import useMatchMedia from "..";
 
-test('throws TypeError if mediaQueryString is not string', () => {
+test("throws TypeError if mediaQueryString is not string", () => {
   expect(() => useMatchMedia({})).toThrow(
-    new Error('Invariant failed: Expected `mediaQueryString` to be a string')
+    new Error("Invariant failed: Expected `mediaQueryString` to be a string"),
   );
 });
 
-test('throws TypeError if initialState is not a boolean', () => {
-  expect(() => useMatchMedia('(max-width: 1280px)', 1)).toThrow(
-    new Error('Invariant failed: Expected `initialState` to be a boolean')
+test("throws TypeError if initialState is not a boolean", () => {
+  expect(() => useMatchMedia("(max-width: 1280px)", 1)).toThrow(
+    new Error("Invariant failed: Expected `initialState` to be a boolean"),
   );
 });
 
-describe('window.matchMedia is supported', () => {
+describe("window.matchMedia is supported", () => {
   beforeEach(() => {
     window.matchMedia = matchMediaMock.create();
-    window.matchMedia.setConfig({ type: 'screen', width: 1200 });
+    window.matchMedia.setConfig({ type: "screen", width: 1200 });
   });
 
   afterEach(() => {
     delete window.matchMedia;
   });
 
-  test('returns true if mediaQueryString matches', () => {
-    const { result } = renderHook(() => useMatchMedia('(max-width: 1280px)'));
+  test("returns true if mediaQueryString matches", () => {
+    const { result } = renderHook(() => useMatchMedia("(max-width: 1280px)"));
 
     expect(result.current).toBe(true);
   });
 
-  test('returns false if mediaQueryString does not match and initialState is set', () => {
+  test("returns false if mediaQueryString does not match and initialState is set", () => {
     const { result } = renderHook(() =>
-      useMatchMedia('(max-width: 1024px)', true)
+      useMatchMedia("(max-width: 1024px)", true),
     );
 
     expect(result.current).toBe(false);
   });
 
-  test('handles mediaQueryString change', () => {
+  test("handles mediaQueryString change", () => {
     const { rerender, result } = renderHook(
       ({ mediaQueryString }) => useMatchMedia(mediaQueryString),
-      { initialProps: { mediaQueryString: '(max-width: 1280px)' } }
+      { initialProps: { mediaQueryString: "(max-width: 1280px)" } },
     );
 
     expect(result.current).toBe(true);
 
-    rerender({ mediaQueryString: '(max-width: 1024px)' });
+    rerender({ mediaQueryString: "(max-width: 1024px)" });
 
     expect(result.current).toBe(false);
   });
 
-  test('listens to MediaQueryList changes', () => {
-    const { result } = renderHook(() => useMatchMedia('(max-width: 1280px)'));
+  test("listens to MediaQueryList changes", () => {
+    const { result } = renderHook(() => useMatchMedia("(max-width: 1280px)"));
 
     expect(result.current).toBe(true);
 
     act(() => {
-      window.matchMedia.setConfig({ type: 'screen', width: 1600 });
+      window.matchMedia.setConfig({ type: "screen", width: 1600 });
     });
 
     expect(result.current).toBe(false);
   });
 });
 
-describe('window.matchMedia is not supported', () => {
-  test('returns false', () => {
-    const { result } = renderHook(() => useMatchMedia('(max-width: 1280px)'));
+describe("window.matchMedia is not supported", () => {
+  test("returns false", () => {
+    const { result } = renderHook(() => useMatchMedia("(max-width: 1280px)"));
     expect(result.current).toBe(false);
   });
 
-  test('returns initialState if set', () => {
+  test("returns initialState if set", () => {
     const { result } = renderHook(() =>
-      useMatchMedia('(max-width: 1280px)', true)
+      useMatchMedia("(max-width: 1280px)", true),
     );
     expect(result.current).toBe(true);
   });
