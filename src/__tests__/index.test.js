@@ -4,18 +4,6 @@ import matchMediaMock from "match-media-mock";
 import { afterEach, beforeEach, describe, expect, test } from "vitest";
 import useMatchMedia from "..";
 
-test("throws TypeError if mediaQueryString is not string", () => {
-  expect(() => useMatchMedia({})).toThrow(
-    new Error("Invariant failed: Expected `mediaQueryString` to be a string"),
-  );
-});
-
-test("throws TypeError if initialState is not a boolean", () => {
-  expect(() => useMatchMedia("(max-width: 1280px)", 1)).toThrow(
-    new Error("Invariant failed: Expected `initialState` to be a boolean"),
-  );
-});
-
 describe("window.matchMedia is supported", () => {
   beforeEach(() => {
     window.matchMedia = matchMediaMock.create();

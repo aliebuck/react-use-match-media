@@ -41,9 +41,6 @@
     "url": "https://github.com/aliebuck/react-use-match-media/issues"
   },
   "homepage": "https://github.com/aliebuck/react-use-match-media#readme",
-  "dependencies": {
-    "tiny-invariant": "^1.2.0"
-  },
   "devDependencies": {
     "@commitlint/cli": "^20.2.0",
     "@commitlint/config-conventional": "^20.2.0",
