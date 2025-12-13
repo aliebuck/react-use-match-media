@@ -49,7 +49,7 @@
     "@commitlint/config-conventional": "^20.2.0",
     "@eslint/js": "^9.39.2",
     "@testing-library/dom": "^10.4.1",
-    "@testing-library/react": "^13.4.0",
+    "@testing-library/react": "^16.3.0",
     "@vitest/coverage-v8": "^4.0.15",
     "@vitest/eslint-plugin": "^1.5.2",
     "eslint": "^9.39.2",
@@ -62,11 +62,12 @@
     "lint-staged": "^16.2.7",
     "match-media-mock": "^0.1.1",
     "prettier": "^3.7.4",
-    "react": "^18.0.0",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
     "vite": "^7.2.7",
     "vitest": "^4.0.15"
   },
   "peerDependencies": {
-    "react": "^16.8.0 || 17 || 18"
+    "react": ">=16.8.0"
   }
 }
