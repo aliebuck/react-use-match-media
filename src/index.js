@@ -1,11 +1,12 @@
 import { useState } from "react";
+import { canUseMatchMedia } from "./canUseMatchMedia";
 import { useBrowserLayoutEffect } from "./useBrowserLayoutEffect";
 
 const useMatchMedia = (mediaQueryString, initialState = false) => {
   const [state, setState] = useState(initialState);
 
   useBrowserLayoutEffect(() => {
-    if (window.matchMedia) {
+    if (canUseMatchMedia) {
       const mediaQueryList = window.matchMedia(mediaQueryString);
 
       const updateState = () => {
