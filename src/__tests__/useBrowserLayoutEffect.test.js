@@ -8,19 +8,24 @@ vi.mock("react", () => ({
 beforeEach(() => {
   vi.resetModules();
   vi.resetAllMocks();
-  delete global.window;
 });
 
-test("is useLayoutEffect in when `window` global is defined", async () => {
-  global.window = {};
+test("is useLayoutEffect when in browser environment", async () => {
+  vi.doMock("../isBrowser", () => ({
+    isBrowser: true,
+  }));
   const { useBrowserLayoutEffect } = await import("../useBrowserLayoutEffect");
   expect(useBrowserLayoutEffect).toBe(useLayoutEffect);
 });
 
-test("is noop in when `window` global is undefined", async () => {
-  expect(global.window).toBeUndefined();
+test("is noop when not in browser environment", async () => {
+  vi.doMock("../isBrowser", () => ({
+    isBrowser: false,
+  }));
   const { useBrowserLayoutEffect } = await import("../useBrowserLayoutEffect");
   expect(useBrowserLayoutEffect).not.toBe(useLayoutEffect);
-  useBrowserLayoutEffect(() => {});
+  const setup = vi.fn();
+  useBrowserLayoutEffect(setup);
   expect(useLayoutEffect).not.toHaveBeenCalled();
+  expect(setup).not.toHaveBeenCalled();
 });
