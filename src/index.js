@@ -1,5 +1,5 @@
 import { useState } from "react";
-import useBrowserLayoutEffect from "./useBrowserLayoutEffect";
+import { useBrowserLayoutEffect } from "./useBrowserLayoutEffect";
 
 const useMatchMedia = (mediaQueryString, initialState = false) => {
   const [state, setState] = useState(initialState);
