@@ -1,8 +1,7 @@
-/**
- * @jest-environment jsdom
- */
+// @vitest-environment jsdom
 import { act, renderHook } from '@testing-library/react';
 import matchMediaMock from 'match-media-mock';
+import { afterEach, beforeEach, describe, expect, test } from 'vitest';
 import useMatchMedia from '..';
 
 test('throws TypeError if mediaQueryString is not string', () => {

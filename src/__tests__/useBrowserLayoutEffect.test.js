@@ -1,30 +1,29 @@
-/**
- * @jest-environment node
- */
 import { useLayoutEffect } from 'react';
+import { beforeEach, expect, test, vi } from 'vitest';
 
-jest.mock('react', () => ({ useLayoutEffect: jest.fn() }));
+vi.mock('react', () => ({
+  useLayoutEffect: vi.fn(),
+}));
 
 beforeEach(() => {
-  jest.resetAllMocks();
+  vi.resetModules();
+  vi.resetAllMocks();
+  delete global.window;
 });
 
-test('is useLayoutEffect in when `window` global is defined', () => {
+test('is useLayoutEffect in when `window` global is defined', async () => {
   global.window = {};
-  let useBrowserLayoutEffect;
-  jest.isolateModules(() => {
-    useBrowserLayoutEffect = require('../useBrowserLayoutEffect').default;
-  });
+  const { default: useBrowserLayoutEffect } = await import(
+    '../useBrowserLayoutEffect'
+  );
   expect(useBrowserLayoutEffect).toBe(useLayoutEffect);
-  global.window = undefined;
 });
 
-test('is noop in when `window` global is undefined', () => {
+test('is noop in when `window` global is undefined', async () => {
   expect(global.window).toBeUndefined();
-  let useBrowserLayoutEffect;
-  jest.isolateModules(() => {
-    useBrowserLayoutEffect = require('../useBrowserLayoutEffect').default;
-  });
+  const { default: useBrowserLayoutEffect } = await import(
+    '../useBrowserLayoutEffect'
+  );
   expect(useBrowserLayoutEffect).not.toBe(useLayoutEffect);
   useBrowserLayoutEffect(() => {});
   expect(useLayoutEffect).not.toHaveBeenCalled();

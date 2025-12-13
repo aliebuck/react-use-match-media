@@ -8,8 +8,11 @@ export default defineConfig({
       formats: ['es', 'cjs'],
     },
     rollupOptions: {
-      external: ['react', 'react-dom'],
+      external: ['react', 'tiny-invariant'],
     },
     sourcemap: true,
+  },
+  test: {
+    setupFiles: ['./vitest.setup.js'],
   },
 });
