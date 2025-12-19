@@ -59,6 +59,25 @@ describe("window.matchMedia is supported", () => {
 
     expect(result.current).toBe(false);
   });
+
+  test("listens to MediaQueryList changes with legacy addListener", () => {
+    window.matchMedia = (query) => {
+      const mediaQueryList = matchMedia(query);
+      delete mediaQueryList.addEventListener;
+      delete mediaQueryList.removeEventListener;
+      return mediaQueryList;
+    };
+
+    const { result } = renderHook(() => useMatchMedia("(max-width: 1280px)"));
+
+    expect(result.current).toBe(true);
+
+    act(() => {
+      setMedia({ type: "screen", width: 1600 });
+    });
+
+    expect(result.current).toBe(false);
+  });
 });
 
 describe("window.matchMedia is not supported", () => {
