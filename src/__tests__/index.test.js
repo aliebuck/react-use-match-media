@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import { act, renderHook } from "@testing-library/react";
-import matchMediaMock from "match-media-mock";
+import { cleanup, matchMedia, setMedia } from "mock-match-media";
 import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
 
 beforeEach(() => {
@@ -11,13 +11,14 @@ describe("window.matchMedia is supported", () => {
   let useMatchMedia;
 
   beforeEach(async () => {
-    window.matchMedia = matchMediaMock.create();
-    window.matchMedia.setConfig({ type: "screen", width: 1200 });
+    window.matchMedia = matchMedia;
+    setMedia({ type: "screen", width: 1200 });
     useMatchMedia = (await import("..")).default;
   });
 
   afterEach(() => {
     delete window.matchMedia;
+    cleanup();
   });
 
   test("returns true if mediaQueryString matches", () => {
@@ -53,7 +54,7 @@ describe("window.matchMedia is supported", () => {
     expect(result.current).toBe(true);
 
     act(() => {
-      window.matchMedia.setConfig({ type: "screen", width: 1600 });
+      setMedia({ type: "screen", width: 1600 });
     });
 
     expect(result.current).toBe(false);
