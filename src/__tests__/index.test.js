@@ -23,7 +23,6 @@ describe("window.matchMedia is supported", () => {
 
   test("returns true if mediaQueryString matches", () => {
     const { result } = renderHook(() => useMatchMedia("(max-width: 1280px)"));
-
     expect(result.current).toBe(true);
   });
 
@@ -31,7 +30,6 @@ describe("window.matchMedia is supported", () => {
     const { result } = renderHook(() =>
       useMatchMedia("(max-width: 1024px)", true),
     );
-
     expect(result.current).toBe(false);
   });
 
@@ -40,23 +38,17 @@ describe("window.matchMedia is supported", () => {
       ({ mediaQueryString }) => useMatchMedia(mediaQueryString),
       { initialProps: { mediaQueryString: "(max-width: 1280px)" } },
     );
-
     expect(result.current).toBe(true);
-
     rerender({ mediaQueryString: "(max-width: 1024px)" });
-
     expect(result.current).toBe(false);
   });
 
   test("listens to MediaQueryList changes", () => {
     const { result } = renderHook(() => useMatchMedia("(max-width: 1280px)"));
-
     expect(result.current).toBe(true);
-
     act(() => {
       setMedia({ type: "screen", width: 1600 });
     });
-
     expect(result.current).toBe(false);
   });
 
@@ -67,15 +59,11 @@ describe("window.matchMedia is supported", () => {
       delete mediaQueryList.removeEventListener;
       return mediaQueryList;
     };
-
     const { result } = renderHook(() => useMatchMedia("(max-width: 1280px)"));
-
     expect(result.current).toBe(true);
-
     act(() => {
       setMedia({ type: "screen", width: 1600 });
     });
-
     expect(result.current).toBe(false);
   });
 });

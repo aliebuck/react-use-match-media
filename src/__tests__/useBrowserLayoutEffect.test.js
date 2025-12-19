@@ -1,16 +1,12 @@
 import { useLayoutEffect } from "react";
 import { beforeEach, expect, test, vi } from "vitest";
 
-vi.mock("react", () => ({
-  useLayoutEffect: vi.fn(),
-}));
-
 beforeEach(() => {
   vi.resetModules();
   vi.resetAllMocks();
 });
 
-test("is useLayoutEffect when in browser environment", async () => {
+test("is `React.useLayoutEffect` when in browser environment", async () => {
   vi.doMock("../isBrowser", () => ({
     isBrowser: true,
   }));
@@ -26,6 +22,5 @@ test("is noop when not in browser environment", async () => {
   expect(useBrowserLayoutEffect).not.toBe(useLayoutEffect);
   const setup = vi.fn();
   useBrowserLayoutEffect(setup);
-  expect(useLayoutEffect).not.toHaveBeenCalled();
   expect(setup).not.toHaveBeenCalled();
 });
