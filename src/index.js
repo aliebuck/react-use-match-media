@@ -16,8 +16,13 @@ const useMatchMedia = (mediaQueryString, initialState = false) => {
     const update = () => setMatches(mediaQueryList.matches);
     update();
 
-    mediaQueryList.addListener(update);
-    return () => mediaQueryList.removeListener(update);
+    if (mediaQueryList.addEventListener) {
+      mediaQueryList.addEventListener("change", update);
+      return () => mediaQueryList.removeEventListener("change", update);
+    } else {
+      mediaQueryList.addListener(update);
+      return () => mediaQueryList.removeListener(update);
+    }
   }, [mediaQueryString]);
 
   return matches;
