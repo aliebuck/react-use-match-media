@@ -2,6 +2,15 @@ import { useState } from "react";
 import { canUseMatchMedia } from "./canUseMatchMedia";
 import { useBrowserLayoutEffect } from "./useBrowserLayoutEffect";
 
+/**
+ * React hook that subscribes to a CSS media query using the
+ * `window.matchMedia()` API.
+ * @param {string} mediaQueryString - A valid CSS media query string.
+ * @param {boolean} [initialState] - Fallback value used for SSR. Defaults to `false`.
+ * @returns {boolean} `true` if the media query matches, otherwise `false`.
+ * @example
+ * const isMedium = useMatchMedia("(max-width: 768px)");
+ */
 const useMatchMedia = (mediaQueryString, initialState = false) => {
   const [matches, setMatches] = useState(() => {
     if (!canUseMatchMedia) return initialState;
