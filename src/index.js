@@ -3,25 +3,24 @@ import { canUseMatchMedia } from "./canUseMatchMedia";
 import { useBrowserLayoutEffect } from "./useBrowserLayoutEffect";
 
 const useMatchMedia = (mediaQueryString, initialState = false) => {
-  const [state, setState] = useState(() =>
-    canUseMatchMedia
-      ? window.matchMedia(mediaQueryString).matches
-      : initialState,
-  );
+  const [matches, setMatches] = useState(() => {
+    if (!canUseMatchMedia) return initialState;
+    return window.matchMedia(mediaQueryString).matches;
+  });
 
   useBrowserLayoutEffect(() => {
-    if (canUseMatchMedia) {
-      const mediaQueryList = window.matchMedia(mediaQueryString);
+    if (!canUseMatchMedia) return;
 
-      const updateState = () => setState(mediaQueryList.matches);
-      updateState();
+    const mediaQueryList = window.matchMedia(mediaQueryString);
 
-      mediaQueryList.addListener(updateState);
-      return () => mediaQueryList.removeListener(updateState);
-    }
+    const update = () => setMatches(mediaQueryList.matches);
+    update();
+
+    mediaQueryList.addListener(update);
+    return () => mediaQueryList.removeListener(update);
   }, [mediaQueryString]);
 
-  return state;
+  return matches;
 };
 
 export default useMatchMedia;
