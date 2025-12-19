@@ -8,17 +8,18 @@ Set your media queries once with `useMatchMedia` and pass down your application
 with React Context.
 
 ```jsx
-import { createContext, useContext } from 'react';
-import useMatchMedia from 'react-use-match-media';
+import { createContext, useContext } from "react";
+import useMatchMedia from "react-use-match-media";
 
-const MediaQueriesContext = createContext({ isWideViewport: false, ... });
+const MediaQueriesContext = createContext({ isLarge: false, isSmall: false });
 
-const MediaQueriesProvider = () => {
-  const isWideViewport = useMatchMedia('(min-width: 600px)');
-  ...
+const MediaQueriesProvider = ({ children }) => {
+  const isLarge = useMatchMedia("(min-width: 960px)");
+  const isSmall = useMatchMedia("(min-width: 320px)");
+
   return (
-    <MediaQueriesContext.Provider value={{ isWideViewport, ... }}>
-      {props.children}
+    <MediaQueriesContext.Provider value={{ isLarge, isSmall }}>
+      {children}
     </MediaQueriesContext.Provider>
   );
 };
@@ -26,8 +27,8 @@ const MediaQueriesProvider = () => {
 const useMediaQueries = () => useContext(MediaQueriesContext);
 
 const Example = (props) => {
-  const { isWideViewport, ... } = useMediaQueries();
-  ...
+  const { isLarge, isSmall } = useMediaQueries();
+  // ...
 };
 
 const App = (props) => {
@@ -36,7 +37,7 @@ const App = (props) => {
       <Example />
     </MediaQueryProvider>
   );
-}
+};
 ```
 
 ## Media Query from Object
@@ -44,13 +45,13 @@ const App = (props) => {
 Define your media query as an object and stringify with [json2mq](https://www.npmjs.com/package/json2mq).
 
 ```jsx
-import json2mq from 'json2mq';
-import useMatchMedia from 'react-use-match-media';
+import json2mq from "json2mq";
+import useMatchMedia from "react-use-match-media";
 
 const wideViewport = json2mq({ minWidth: 600 });
 
 const Example = (props) => {
   const isWideViewport = useMatchMedia(wideViewport);
-  ...
+  // ...
 };
 ```
