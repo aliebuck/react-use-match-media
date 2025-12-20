@@ -12,10 +12,7 @@ import { useBrowserLayoutEffect } from "./useBrowserLayoutEffect";
  * const isMedium = useMatchMedia("(max-width: 768px)");
  */
 const useMatchMedia = (mediaQueryString, initialState = false) => {
-  const [matches, setMatches] = useState(() => {
-    if (!canUseMatchMedia) return initialState;
-    return window.matchMedia(mediaQueryString).matches;
-  });
+  const [matches, setMatches] = useState(initialState);
 
   useBrowserLayoutEffect(() => {
     if (!canUseMatchMedia) return;
