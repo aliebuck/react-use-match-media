@@ -1,11 +1,26 @@
 # Changelog
 
+## Unreleased
+
+### Added
+
+- Added support for `addEventListener()` and `removeEventListener()` on `MediaQueryList`.
+
+### Changed
+
+- Updated [react](https://www.npmjs.com/package/react) peer dependency to support v19+.
+
+### Removed
+
+- Removed type checking.
+- Removed [tiny-invariant](https://www.npmjs.com/package/tiny-invariant) dependency.
+
 ## v1.4.0 - 2022-04-16
 
 ### Changed
 
 - Updated [tiny-invariant](https://www.npmjs.com/package/tiny-invariant) dependency to v1.2.0.
-- Updated [react](https://www.npmjs.com/package/react) peer-dependency to support v18.
+- Updated [react](https://www.npmjs.com/package/react) peer dependency to support v18.
 
 ### Removed
 
